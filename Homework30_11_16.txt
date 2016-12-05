@@ -1,0 +1,7 @@
+<shcool id="1241" type="цанс_янь">
+  <class id="11b" timetable="https://sch1241.ru/11_b/tmtbl">
+     <student id="Sergey_Andronov" />
+  </class>
+  <class id="11a" timetable="https://sch1241.ru/11_a/tmtbl">
+  </class>
+</school>
