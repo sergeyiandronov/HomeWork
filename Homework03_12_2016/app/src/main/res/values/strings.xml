@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Test2016</string>
+    <string name="cor">Вы вошли</string>
+    <string name="incor">Неверный логин или пароль</string>
+</resources>
