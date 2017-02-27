@@ -1,0 +1,21 @@
+create database library_samsung;
+use library_samsung;
+create table Книги(id_book integer  primary key  auto_increment,
+Название text, Автор text,Издательство text,Год_издания year,
+Стоимость real,Признак text);
+create table Хранилище(id_storage integer primary key auto_increment,
+ФИО_руководителя text,Адрес text,Телефон text,Вместимость integer);
+create table Хранение(_id integer primary key auto_increment,id_storage integer,
+id_book integer,Количество_экземпляров integer,Выдачи text,
+ foreign key(id_book) references Книги(id_book),
+foreign key(id_storage) references Хранилище(id_storage));
+create table Факультеты(id_fakultet integer  primary key  auto_increment,
+
+Название_факультета text, Декан text,Дата_образования date);
+create table Книги_в_учебном_процессе(_id integer primary key auto_increment,
+id_fakultet integer,
+
+id_book integer,Дисциплина text,
+ foreign key(id_book) references Книги(id_book),
+
+foreign key(id_fakultet) references Факультеты(id_fakultet));
