@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -59,7 +60,7 @@ public class GameView extends SurfaceView implements Runnable {
     //the high Scores Holder
     int highScore[] = new int[4];
 
-    //Shared Prefernces to store the High Score SharedPreferences sharedPreferences;
+    //Shared Prefernces to store the High Scores
 
 
     static MediaPlayer gameOnsound;
@@ -96,17 +97,16 @@ public class GameView extends SurfaceView implements Runnable {
 
 //setting the score to 0 initially
         score = 0;
-
-        db = new DatabaseHelper(context);
+        db=new DatabaseHelper(context);
         Cursor c=db.getScore();
-       c.moveToFirst();
+        c.moveToFirst();
         for(int t=0;t <highScore.length;t++){
             if (!(c.isAfterLast())){
-            highScore[t] =c.getInt(1);}else{
+                highScore[t] =Integer.parseInt(c.getString(c.getColumnIndex(DatabaseHelper.COLUMN_ADD)));c.moveToNext(); }else{
                 highScore[t]=0;
             }
-            }
-//initializing the array high scores with the previous values
+        }
+
 
         this.context = context;
 
@@ -285,9 +285,8 @@ public class GameView extends SurfaceView implements Runnable {
 
                         //storing the scores through shared Preferences
 
+                           db.addScore(highScore);
 
-
-                            db.addScore(highScore);
 
 
                     }
@@ -326,7 +325,9 @@ public class GameView extends SurfaceView implements Runnable {
                 }
             }
             //storing the scores through shared Preferences
-            db.addScore(highScore);
+
+
+           db.addScore(highScore);
         }
     }
 

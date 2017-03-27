@@ -8,6 +8,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -31,7 +32,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + "(" + COLUMN_ID +
                 " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + COLUMN_ADD +
-                " INTEGER);";
+                " VARCHAR);";
         db.execSQL(sql);
     }
 
@@ -43,15 +44,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public boolean addScore( int[] add) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        String sql = "TRUNCATE TABLE "+TABLE_NAME+";";
-        db.execSQL(sql);
-        ContentValues contentValues = new ContentValues();
+        SQLiteDatabase db;
+        db=this.getWritableDatabase();
+        db.delete(TABLE_NAME,"1=1",null);
 
-         for(int t=0;t <add.length;t++){
-        contentValues.put(COLUMN_ADD, add[t]);}
 
-        db.insert(TABLE_NAME, null, contentValues);
+        for(int t=0;t <add.length;t++){
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(COLUMN_ADD, String.valueOf(add[t]));
+
+            db.insert(TABLE_NAME, null, contentValues);}
         db.close();
         return true;
     }
